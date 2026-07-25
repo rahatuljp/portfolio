@@ -178,19 +178,19 @@
     <div class="detail-panel">
       <div class="detail-row">
         <span class="detail-label">路線ルート</span>
-        <span class="detail-val">福岡 (FUK) ➔ ダッカ/チッタゴン</span>
+        <span class="detail-val">福岡 ➔ 香港 ➔ DAC ➔ チッタゴン</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">現地時刻 (出発時)</span>
-        <span class="detail-val">13:40 (時差 -3時間)</span>
+        <span class="detail-label">乗継・便名</span>
+        <span class="detail-val">香港乗継 3h30m / US-Bangla (BS101)</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">所要目安</span>
-        <span class="detail-val">約 8 〜 10 時間 (乗り継ぎ含)</span>
+        <span class="detail-label">到着予定</span>
+        <span class="detail-val">8月2日(日) 07:55 チッタゴン着</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">準備チェック</span>
-        <span class="badge">パスポート / Eチケット / ビザ</span>
+        <span class="detail-label">準備・条件</span>
+        <span class="badge">預け手荷物 20kg / パスポート</span>
       </div>
     </div>
 
@@ -200,7 +200,7 @@
       <div class="time-box"><span class="num" id="minutes-bd">00</span><span class="label">分</span></div>
       <div class="time-box"><span class="num" id="seconds-bd">00</span><span class="label">秒</span></div>
     </div>
-    <div class="target-date">🛫 便出発: 2026年8月1日 16:40 福岡空港</div>
+    <div class="target-date">🛫 便出発: 2026年8月1日(土) 16:40 福岡空港 (CGP着: 8/2 07:55)</div>
   </div>
 
   <!-- 2. DOWN: BD to JP (日本帰国) -->
@@ -220,19 +220,19 @@
     <div class="detail-panel">
       <div class="detail-row">
         <span class="detail-label">路線ルート</span>
-        <span class="detail-val">チッタゴン (CGP) ➔ 福岡 (FUK)</span>
+        <span class="detail-val">チッタゴン ➔ DAC ➔ 香港 ➔ 福岡</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">日本時刻 (出発時)</span>
-        <span class="detail-val">22:25 (時差 +3時間)</span>
+        <span class="detail-label">乗継・便名</span>
+        <span class="detail-val">香港乗継 2h50m / US-Bangla (BS116)</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">所要目安</span>
-        <span class="detail-val">約 8 〜 11 時間 (乗り継ぎ含)</span>
+        <span class="detail-label">到着予定</span>
+        <span class="detail-val">8月30日(日) 15:30 福岡着</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">準備チェック</span>
-        <span class="badge">在留カード / Visit Japan Web</span>
+        <span class="detail-label">準備・条件</span>
+        <span class="badge">預け手荷物 20kg / 在留カード</span>
       </div>
     </div>
 
@@ -242,14 +242,14 @@
       <div class="time-box"><span class="num" id="minutes-jp">00</span><span class="label">分</span></div>
       <div class="time-box"><span class="num" id="seconds-jp">00</span><span class="label">秒</span></div>
     </div>
-    <div class="target-date">🛬 日本戻り便出発: 2026年8月30日 19:25 チッタゴン空港</div>
+    <div class="target-date">🛬 便出発: 2026年8月29日(土) 19:25 チッタゴン (FUK着: 8/30 15:30)</div>
   </div>
 </div>
 
 <script>
-  // Set specific flight countdown target times
-  const targetBd = new Date("August 1, 2026 16:40:00").getTime();
-  const targetJp = new Date("August 30, 2026 19:25:00").getTime();
+  // Set specific flight countdown target times (ISO format with timezone offset)
+  const targetBd = new Date("2026-08-01T16:40:00+09:00").getTime(); // Japan Time (UTC+9)
+  const targetJp = new Date("2026-08-29T19:25:00+06:00").getTime(); // Bangladesh Time (UTC+6)
 
   function updateTimers() {
     const now = new Date().getTime();
@@ -283,9 +283,5 @@
 
 </body>
 </html>
-```
 
-### Enhancements Made:
-- **Smooth Hover Transition**: Added an animated detail box under each section title that expands when hovering over the title or card.
-- **Flight & Route Info**: Included airport codes (FUK, CGP), local time conversions based on time zone (-3h / +3h), and essential document checklists.
-- **Visual Polish**: Added a subtle card elevation animation and clean badges for quick reference.
+
