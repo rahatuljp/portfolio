@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帰国カウントダウン & フライト詳細</title>
+<style>
+  :root {
+    --bg-main: #f3f4f6;
+    --bd-green: #006a4e;
+    --bd-green-light: #e6f3ef;
+    --jp-red: #bc002d;
+    --jp-red-light: #fce8eb;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --accent-gold: #d97706;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    min-height: 100vh;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 6px;
+  }
+
+  .header p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(229, 231, 235, 0.8);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .route-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .flag-jp {
+    width: 32px;
+    height: 22px;
+    background: white;
+    border: 1px solid #d1d5db;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .flag-jp::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--jp-red);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .flag-bd {
+    width: 32px;
+    height: 22px;
+    background: var(--bd-green);
+    border: 1px solid #d1d5db;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .flag-bd::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #f42a41;
+    border-radius: 50%;
+    top: 50%;
+    left: 42%;
+    transform: translate(-50%, -50%);
+  }
+
+  .plane-icon {
+    font-size: 16px;
+    color: var(--text-muted);
+  }
+
+  .title-text {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .to-bd .title-text { color: var(--bd-green); }
+  .to-jp .title-text { color: var(--jp-red); }
+
+  /* Hover Detail Trigger Button & Tag */
+  .detail-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+
+  .to-bd .detail-trigger {
+    background: var(--bd-green-light);
+    color: var(--bd-green);
+    border: 1px solid rgba(0, 106, 78, 0.2);
+  }
+
+  .to-jp .detail-trigger {
+    background: var(--jp-red-light);
+    color: var(--jp-red);
+    border: 1px solid rgba(188, 0, 45, 0.2);
+  }
+
+  .detail-trigger:hover {
+    filter: brightness(0.95);
+    transform: scale(1.02);
+  }
+
+  /* Countdown Grid */
+  .timer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .time-box {
+    text-align: center;
+    padding: 12px 4px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+  }
+
+  .to-bd .time-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+
+  .to-jp .time-box {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+  }
+
+  .num {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #111827;
+    display: block;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .target-summary {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .to-bd .target-summary {
+    background: var(--bd-green-light);
+    color: #064e3b;
+  }
+
+  .to-jp .target-summary {
+    background: var(--jp-red-light);
+    color: #881337;
+  }
+
+  /* Hover Flight Detail Timeline Panel */
+  .flight-detail-panel {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 0;
+    border-top: 0px solid transparent;
+  }
+
+  /* Hover OR Active Class Show State */
+  .card:hover .flight-detail-panel,
+  .flight-detail-panel.active {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed #e5e7eb;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 20px;
+    margin: 12px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: #d1d5db;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -20px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--text-muted);
+  }
+
+  .to-bd .timeline-dot { border-color: var(--bd-green); }
+  .to-jp .timeline-dot { border-color: var(--jp-red); }
+
+  .timeline-content {
+    font-size: 13px;
+  }
+
+  .flight-date-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .flight-route {
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .layover-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin: 6px 0;
+    border: 1px solid #fde68a;
+  }
+
+  .info-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .badge-usbangla {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+  }
+
+  .badge-baggage {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 16px 12px; }
+    .card { padding: 18px; }
+    .num { font-size: 22px; }
+    .title-text { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>帰国カウントダウン</h1>
+  
+</div>
+
+<div class="container">
+
+  <!-- 1. OUTBOUND: JP -> BD -->
+  <div class="card to-bd" id="card-bd">
+    <div class="card-header">
+      <div class="route-badge">
+        <div class="flag-jp"></div>
+        <span class="plane-icon">✈</span>
+        <div class="flag-bd"></div>
+      </div>
+      <div class="detail-trigger" onclick="toggleDetail('panel-bd')">
+        <span>✈ フライト詳細</span>
+        <span>▼</span>
+      </div>
+    </div>
+
+    <h2 class="title-text">バングラデシュ帰国まで</h2>
+
+    <div class="timer-grid" id="timer-bd">
+      <div class="time-box"><span class="num" id="days-bd">00</span><span class="label">日</span></div>
+      <div class="time-box"><span class="num" id="hours-bd">00</span><span class="label">時間</span></div>
+      <div class="time-box"><span class="num" id="minutes-bd">00</span><span class="label">分</span></div>
+      <div class="time-box"><span class="num" id="seconds-bd">00</span><span class="label">秒</span></div>
+    </div>
+
+    <div class="target-summary">
+      <span>🛫 出発: 福岡空港</span>
+      <span>2026年8月1日 16:40</span>
+    </div>
+
+    <!-- Hover Detail Panel (JP -> BD) -->
+    <div class="flight-detail-panel" id="panel-bd">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="flight-date-header">8月1日（土）</div>
+            <div class="flight-route">福岡 16:40発 ➔ 香港 19:25着</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="layover-tag">⏳ 香港乗継（レイオーバー）： 3時間30分</span>
+            <div class="flight-route">香港 22:55発 ➔ ダッカ 8月2日（日）01:00着</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="flight-date-header">8月2日（日）国内線</div>
+            <div class="flight-route">ダッカ 07:00発 ➔ チッタゴン 07:55着</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-pills">
+        <span class="pill badge-usbangla">✈ US-Bangla Airlines (BS101)</span>
+        <span class="pill badge-baggage">🧳 預け手荷物: 20kg</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. INBOUND: BD -> JP -->
+  <div class="card to-jp" id="card-jp">
+    <div class="card-header">
+      <div class="route-badge">
+        <div class="flag-bd"></div>
+        <span class="plane-icon">✈</span>
+        <div class="flag-jp"></div>
+      </div>
+      <div class="detail-trigger" onclick="toggleDetail('panel-jp')">
+        <span>✈ フライト詳細</span>
+        <span>▼</span>
+      </div>
+    </div>
+
+    <h2 class="title-text">日本へ戻るまで</h2>
+
+    <div class="timer-grid" id="timer-jp">
+      <div class="time-box"><span class="num" id="days-jp">00</span><span class="label">日</span></div>
+      <div class="time-box"><span class="num" id="hours-jp">00</span><span class="label">時間</span></div>
+      <div class="time-box"><span class="num" id="minutes-jp">00</span><span class="label">分</span></div>
+      <div class="time-box"><span class="num" id="seconds-jp">00</span><span class="label">秒</span></div>
+    </div>
+
+    <div class="target-summary">
+      <span>🛫 出発: チッタゴン空港</span>
+      <span>2026年8月29日 19:25</span>
+    </div>
+
+    <!-- Hover Detail Panel (BD -> JP) -->
+    <div class="flight-detail-panel" id="panel-jp">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="flight-date-header">8月29日（土）復路開始</div>
+            <div class="flight-route">チッタゴン 19:25発 ➔ ダッカ 20:20着</div>
+            <div style="font-size: 11px; color: #4b5563; margin-top: 2px;">US-Bangla Airlines (BS116)</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="flight-date-header">8月30日（日）国際線</div>
+            <div class="flight-route">ダッカ 02:10発 ➔ 香港 08:10着</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="layover-tag">⏳ 香港乗継（レイオーバー）： 2時間50分</span>
+            <div class="flight-route">香港 11:00発 ➔ 福岡 15:30着</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-pills">
+        <span class="pill badge-usbangla">✈ US-Bangla Airlines (BS116)</span>
+        <span class="pill badge-baggage">🧳 預け手荷物: 20kg</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Countdown target timestamps
+  const targetBd = new Date("August 1, 2026 16:40:00").getTime();
+  const targetJp = new Date("August 29, 2026 19:25:00").getTime();
+
+  function updateTimers() {
+    const now = new Date().getTime();
+
+    // 1. Outbound Timer (JP -> BD)
+    const distBd = targetBd - now;
+    if (distBd < 0) {
+      document.getElementById("timer-bd").innerHTML = 
+        "<div style='grid-column: span 4; font-size: 16px; font-weight: bold; color: var(--bd-green); padding: 12px; background: var(--bd-green-light); border-radius: 10px;'>🇧🇩 現在バングラデシュ滞在期間中・帰国中です！</div>";
+    } else {
+      document.getElementById("days-bd").innerText = String(Math.floor(distBd / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById("hours-bd").innerText = String(Math.floor((distBd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById("minutes-bd").innerText = String(Math.floor((distBd % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById("seconds-bd").innerText = String(Math.floor((distBd % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+
+    // 2. Inbound Timer (BD -> JP)
+    const distJp = targetJp - now;
+    if (distJp < 0) {
+      document.getElementById("timer-jp").innerHTML = 
+        "<div style='grid-column: span 4; font-size: 16px; font-weight: bold; color: var(--jp-red); padding: 12px; background: var(--jp-red-light); border-radius: 10px;'>🇯🇵 無事に日本へ到着しました！</div>";
+    } else {
+      document.getElementById("days-jp").innerText = String(Math.floor(distJp / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById("hours-jp").innerText = String(Math.floor((distJp % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById("minutes-jp").innerText = String(Math.floor((distJp % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById("seconds-jp").innerText = String(Math.floor((distJp % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+  }
+
+  // Mobile tap toggle helper
+  function toggleDetail(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) {
+      panel.classList.toggle('active');
+    }
+  }
+
+  updateTimers();
+  setInterval(updateTimers, 1000);
+</script>
+
+</body>
+</html>

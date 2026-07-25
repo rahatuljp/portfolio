@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; color: #333; line-height: 1.6; margin: 40px; }
+  h1 { font-size: 24px; border-bottom: 2px solid #0056b3; padding-bottom: 10px; color: #0056b3; text-align: center; }
+  h2 { font-size: 18px; color: #333; margin-top: 30px; border-left: 4px solid #0056b3; padding-left: 10px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 20px; }
+  th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+  th { background-color: #f2f2f2; font-weight: bold; width: 25%; }
+  .summary-box { background-color: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 5px; margin-top: 20px; }
+  .summary-title { font-weight: bold; color: #495057; margin-bottom: 8px; }
+  
+  /* Pure CSS Real Flags */
+  .flag-container { display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
+  .flag-bd { display: inline-block; width: 24px; height: 14px; background-color: #006a4e; position: relative; border: 1px solid #ddd; vertical-align: middle; margin-left: 6px; }
+  .flag-bd::after { content: ''; position: absolute; width: 8px; height: 8px; background-color: #f42a41; border-radius: 50%; top: 50%; left: 45%; transform: translate(-50%, -50%); }
+  .flag-jp { display: inline-block; width: 24px; height: 16px; background-color: #ffffff; position: relative; border: 1px solid #ddd; vertical-align: middle; margin-left: 6px; }
+  .flag-jp::after { content: ''; position: absolute; width: 9px; height: 9px; background-color: #bc002d; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+</style>
+</head>
+<body>
+
+<h1>7月・8月・9月 業務および休暇予定表</h1>
+
+<h2>【7月の予定】</h2>
+<table>
+  <tr><th>7月6日</th><td>宇久へ移動</td></tr>
+  <tr><th>7月11日</th><td>休日出勤</td></tr>
+  <tr><th>7月18日</th><td>休日出勤</td></tr>
+  <tr><th>7月25日</th><td>休日出勤</td></tr>
+  <tr><th>7月31日</th><td>本社へ移動(12:00時まで)</td></tr>
+</table>
+
+<div class="summary-box">
+  <div class="summary-title">■ 7月有給休暇の内訳(計 10日間)</div>
+  ● 元々の有給休暇:7日<br>
+  ● 7月休日出勤(11日、18日、25日)による振替分:3日
+</div>
+
+<h2>【8月・9月の予定】</h2>
+<table>
+  <tr><th>8月1日</th><td>バングラデシュへ帰国 <span class="flag-bd"></span></td></tr>
+  <tr><th>8月3日 〜 8月7日</th><td>有給休暇(5日間)</td></tr>
+  <tr><th>8月8日 〜 8月16日</th><td>お盆休み(9日間)</td></tr>
+  <tr><th>8月17日 〜 8月21日</th><td>有給休暇(5日間)</td></tr>
+  <tr><th>8月24日 〜 8月31日</th><td>欠勤(6日間)</td></tr>
+  <tr><th>8月30日</th><td>日本へ戻ります <span class="flag-jp"></span></td></tr>
+  <tr><th>9月1日</th><td>出勤</td></tr>
+</table>
+
+</body>
+</html>
