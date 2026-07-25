@@ -9,11 +9,15 @@
     --bg-main: #f3f4f6;
     --bd-green: #006a4e;
     --bd-green-light: #e6f3ef;
+    --bd-green-hover: #00543e;
     --jp-red: #bc002d;
     --jp-red-light: #fce8eb;
+    --jp-red-hover: #a00026;
     --text-dark: #1f2937;
     --text-muted: #6b7280;
-    --accent-gold: #d97706;
+    --accent-amber: #d97706;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    --card-hover-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
   }
 
   * {
@@ -27,51 +31,62 @@
     background-color: var(--bg-main);
     color: var(--text-dark);
     min-height: 100vh;
-    padding: 24px 16px;
+    padding: 32px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
+  /* Header Section */
   .header {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   .header h1 {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
     color: #111827;
     margin-bottom: 6px;
+    letter-spacing: -0.02em;
   }
 
   .header p {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-muted);
   }
 
+  /* Grid Container: Single column on mobile, Side-by-side (2 columns) on Desktop */
   .container {
     width: 100%;
-    max-width: 520px;
-    display: flex;
-    flex-direction: column;
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 24px;
+    align-items: start;
   }
 
+  @media (min-width: 768px) {
+    .container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Card Component */
   .card {
     background: #ffffff;
     border-radius: 20px;
     padding: 24px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    box-shadow: var(--card-shadow);
     border: 1px solid rgba(229, 231, 235, 0.8);
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
+    box-shadow: var(--card-hover-shadow);
   }
 
   .card-header {
@@ -81,6 +96,7 @@
     margin-bottom: 16px;
   }
 
+  /* Country Flags */
   .route-badge {
     display: flex;
     align-items: center;
@@ -88,7 +104,7 @@
   }
 
   .flag-jp {
-    width: 32px;
+    width: 34px;
     height: 22px;
     background: white;
     border: 1px solid #d1d5db;
@@ -96,6 +112,7 @@
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
+
   .flag-jp::after {
     content: '';
     position: absolute;
@@ -109,7 +126,7 @@
   }
 
   .flag-bd {
-    width: 32px;
+    width: 34px;
     height: 22px;
     background: var(--bd-green);
     border: 1px solid #d1d5db;
@@ -117,6 +134,7 @@
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
+
   .flag-bd::after {
     content: '';
     position: absolute;
@@ -135,20 +153,20 @@
   }
 
   .title-text {
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 800;
   }
 
   .to-bd .title-text { color: var(--bd-green); }
   .to-jp .title-text { color: var(--jp-red); }
 
-  /* Hover Detail Trigger Button & Tag */
+  /* Trigger Button for Mobile / Tap */
   .detail-trigger {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     padding: 6px 12px;
     border-radius: 20px;
     cursor: pointer;
@@ -169,21 +187,21 @@
   }
 
   .detail-trigger:hover {
-    filter: brightness(0.95);
+    filter: brightness(0.96);
     transform: scale(1.02);
   }
 
-  /* Countdown Grid */
+  /* Countdown Timer Grid */
   .timer-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    margin: 18px 0;
+    margin: 20px 0;
   }
 
   .time-box {
     text-align: center;
-    padding: 12px 4px;
+    padding: 14px 4px;
     border-radius: 12px;
     transition: background-color 0.3s ease;
   }
@@ -199,7 +217,7 @@
   }
 
   .num {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 800;
     line-height: 1.1;
     color: #111827;
@@ -210,15 +228,16 @@
   .label {
     font-size: 11px;
     color: var(--text-muted);
-    font-weight: 600;
+    font-weight: 700;
     margin-top: 4px;
     display: block;
   }
 
+  /* Departure Summary Banner */
   .target-summary {
     font-size: 13px;
-    font-weight: 600;
-    padding: 10px 14px;
+    font-weight: 700;
+    padding: 12px 14px;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -236,7 +255,7 @@
     color: #881337;
   }
 
-  /* Hover Flight Detail Timeline Panel */
+  /* Expandable Flight Detail Timeline Panel */
   .flight-detail-panel {
     max-height: 0;
     opacity: 0;
@@ -246,7 +265,7 @@
     border-top: 0px solid transparent;
   }
 
-  /* Hover OR Active Class Show State */
+  /* Hover & Active Expanded State */
   .card:hover .flight-detail-panel,
   .flight-detail-panel.active {
     max-height: 600px;
@@ -256,6 +275,7 @@
     border-top: 1px dashed #e5e7eb;
   }
 
+  /* Timeline Item Styles */
   .timeline {
     position: relative;
     padding-left: 20px;
@@ -266,15 +286,15 @@
     content: '';
     position: absolute;
     left: 6px;
-    top: 6px;
-    bottom: 6px;
+    top: 8px;
+    bottom: 8px;
     width: 2px;
     background: #d1d5db;
   }
 
   .timeline-item {
     position: relative;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
 
   .timeline-item:last-child {
@@ -300,10 +320,11 @@
   }
 
   .flight-date-header {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--text-muted);
     margin-bottom: 2px;
+    text-transform: uppercase;
   }
 
   .flight-route {
@@ -314,7 +335,7 @@
   .layover-tag {
     display: inline-block;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     background: #fef3c7;
     color: #92400e;
     padding: 3px 8px;
@@ -323,17 +344,18 @@
     border: 1px solid #fde68a;
   }
 
+  /* Airline & Baggage Info Badges */
   .info-pills {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: 14px;
   }
 
   .pill {
     font-size: 11px;
-    font-weight: 600;
-    padding: 4px 10px;
+    font-weight: 700;
+    padding: 5px 10px;
     border-radius: 20px;
     background: #f3f4f6;
     color: #374151;
@@ -355,10 +377,11 @@
   }
 
   @media (max-width: 480px) {
-    body { padding: 16px 12px; }
+    body { padding: 20px 12px; }
     .card { padding: 18px; }
     .num { font-size: 22px; }
-    .title-text { font-size: 16px; }
+    .title-text { font-size: 17px; }
+    .target-summary { flex-direction: column; align-items: flex-start; gap: 4px; }
   }
 </style>
 </head>
@@ -366,7 +389,7 @@
 
 <div class="header">
   <h1>帰国カウントダウン</h1>
-  
+  <p>福岡 ⇄ 香港 ⇄ ダッカ ⇄ チッタゴン (US-Bangla便)</p>
 </div>
 
 <div class="container">
@@ -396,16 +419,16 @@
 
     <div class="target-summary">
       <span>🛫 出発: 福岡空港</span>
-      <span>2026年8月1日 16:40</span>
+      <span>2026年8月1日（土）16:40</span>
     </div>
 
-    <!-- Hover Detail Panel (JP -> BD) -->
+    <!-- Flight Timeline Detail Panel (Outbound) -->
     <div class="flight-detail-panel" id="panel-bd">
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <div class="flight-date-header">8月1日（土）</div>
+            <div class="flight-date-header">8月1日（土）国際線</div>
             <div class="flight-route">福岡 16:40発 ➔ 香港 19:25着</div>
           </div>
         </div>
@@ -459,16 +482,16 @@
 
     <div class="target-summary">
       <span>🛫 出発: チッタゴン空港</span>
-      <span>2026年8月29日 19:25</span>
+      <span>2026年8月29日（土）19:25</span>
     </div>
 
-    <!-- Hover Detail Panel (BD -> JP) -->
+    <!-- Flight Timeline Detail Panel (Inbound) -->
     <div class="flight-detail-panel" id="panel-jp">
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <div class="flight-date-header">8月29日（土）復路開始</div>
+            <div class="flight-date-header">8月29日（土）国内線</div>
             <div class="flight-route">チッタゴン 19:25発 ➔ ダッカ 20:20着</div>
             <div style="font-size: 11px; color: #4b5563; margin-top: 2px;">US-Bangla Airlines (BS116)</div>
           </div>
@@ -512,7 +535,7 @@
     const distBd = targetBd - now;
     if (distBd < 0) {
       document.getElementById("timer-bd").innerHTML = 
-        "<div style='grid-column: span 4; font-size: 16px; font-weight: bold; color: var(--bd-green); padding: 12px; background: var(--bd-green-light); border-radius: 10px;'>🇧🇩 現在バングラデシュ滞在期間中・帰国中です！</div>";
+        "<div style='grid-column: span 4; font-size: 15px; font-weight: bold; color: var(--bd-green); padding: 12px; background: var(--bd-green-light); border-radius: 10px; text-align: center;'>🇧🇩 現在バングラデシュ滞在期間中・帰国中です！</div>";
     } else {
       document.getElementById("days-bd").innerText = String(Math.floor(distBd / (1000 * 60 * 60 * 24))).padStart(2, '0');
       document.getElementById("hours-bd").innerText = String(Math.floor((distBd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
@@ -524,7 +547,7 @@
     const distJp = targetJp - now;
     if (distJp < 0) {
       document.getElementById("timer-jp").innerHTML = 
-        "<div style='grid-column: span 4; font-size: 16px; font-weight: bold; color: var(--jp-red); padding: 12px; background: var(--jp-red-light); border-radius: 10px;'>🇯🇵 無事に日本へ到着しました！</div>";
+        "<div style='grid-column: span 4; font-size: 15px; font-weight: bold; color: var(--jp-red); padding: 12px; background: var(--jp-red-light); border-radius: 10px; text-align: center;'>🇯🇵 無事に日本へ到着しました！</div>";
     } else {
       document.getElementById("days-jp").innerText = String(Math.floor(distJp / (1000 * 60 * 60 * 24))).padStart(2, '0');
       document.getElementById("hours-jp").innerText = String(Math.floor((distJp % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
@@ -533,7 +556,7 @@
     }
   }
 
-  // Mobile tap toggle helper
+  // Mobile/Touch click toggle panel function
   function toggleDetail(panelId) {
     const panel = document.getElementById(panelId);
     if (panel) {
@@ -541,6 +564,7 @@
     }
   }
 
+  // Start real-time clock countdown
   updateTimers();
   setInterval(updateTimers, 1000);
 </script>
