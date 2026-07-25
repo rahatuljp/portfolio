@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帰国カウントダウン (フライト時間設定済)</title>
+<style>
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+  .to-bd h1 { color: #006a4e; }
+  .to-jp h1 { color: #bc002d; }
+  
+  .flags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  /* Pure CSS Flags */
+  .flag-jp { width: 45px; height: 30px; background: white; border: 1px solid #ccc; position: relative; border-radius: 3px; display: inline-block; }
+  .flag-jp::after { content: ''; position: absolute; width: 16px; height: 16px; background: #bc002d; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  
+  .flag-bd { width: 45px; height: 27px; background: #006a4e; border: 1px solid #ccc; position: relative; border-radius: 3px; display: inline-block; }
+  .flag-bd::after { content: ''; position: absolute; width: 15px; height: 15px; background: #f42a41; border-radius: 50%; top: 50%; left: 45%; transform: translate(-50%, -50%); }
+  
+  .arrow { font-size: 24px; color: #888; }
+  
+  .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+  .time-box { padding: 12px 5px; border-radius: 8px; }
+  .to-bd .time-box { background: #eff7f4; border: 1px solid #cce1d9; }
+  .to-jp .time-box { background: #faf0f1; border: 1px solid #fbdcd6; }
+  
+  .num { font-size: 28px; font-weight: bold; color: #111; display: block; }
+  .label { font-size: 11px; color: #666; margin-top: 2px; }
+  
+  .target-date { font-size: 13px; color: #666; margin-top: 20px; padding: 8px; border-radius: 5px; font-weight: bold; }
+  .to-bd .target-date { background: #eff7f4; border: 1px solid #cce1d9; }
+  .to-jp .target-date { background: #fdf2f4; border: 1px solid #fcdbe0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 1. UP: JP to BD (バングラデシュ帰国) -->
+  <div class="card to-bd">
+    <div class="flags">
+      <div class="flag-jp"></div>
+      <div class="arrow">✈</div>
+      <div class="flag-bd"></div>
+    </div>
+    <h1>バングラデシュ帰国まで</h1>
+    <div class="timer-grid" id="timer-bd">
+      <div class="time-box"><span class="num" id="days-bd">00</span><span class="label">日</span></div>
+      <div class="time-box"><span class="num" id="hours-bd">00</span><span class="label">時間</span></div>
+      <div class="time-box"><span class="num" id="minutes-bd">00</span><span class="label">分</span></div>
+      <div class="time-box"><span class="num" id="seconds-bd">00</span><span class="label">秒</span></div>
+    </div>
+    <div class="target-date">フ料便出発: 2026年8月1日 16:40 福岡空港</div>
+  </div>
+
+  <!-- 2. DOWN: BD to JP (日本帰国) -->
+  <div class="card to-jp">
+    <div class="flags">
+      <div class="flag-bd"></div>
+      <div class="arrow">✈</div>
+      <div class="flag-jp"></div>
+    </div>
+    <h1>日本へ戻るまで</h1>
+    <div class="timer-grid" id="timer-jp">
+      <div class="time-box"><span class="num" id="days-jp">00</span><span class="label">日</span></div>
+      <div class="time-box"><span class="num" id="hours-jp">00</span><span class="label">時間</span></div>
+      <div class="time-box"><span class="num" id="minutes-jp">00</span><span class="label">分</span></div>
+      <div class="time-box"><span class="num" id="seconds-jp">00</span><span class="label">秒</span></div>
+    </div>
+    <div class="target-date">日本戻り還便出発: 2026年8月30日 19:25 チッタゴン空港</div>
+  </div>
+</div>
+
+<script>
+  // Set specific flight countdown target times
+  const targetBd = new Date("August 1, 2026 16:40:00").getTime();
+  const targetJp = new Date("August 30, 2026 19:25:00").getTime();
+
+  function updateTimers() {
+    const now = new Date().getTime();
+
+    // 1. Bangladesh Timer (JP -> BD)
+    const distBd = targetBd - now;
+    if (distBd < 0) {
+      document.getElementById("timer-bd").innerHTML = "<div style='grid-column: span 4; font-size: 18px; font-weight: bold; color: #006a4e; padding: 15px;'>帰国中・滞在期間です！🇧🇩</div>";
+    } else {
+      document.getElementById("days-bd").innerText = String(Math.floor(distBd / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById("hours-bd").innerText = String(Math.floor((distBd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById("minutes-bd").innerText = String(Math.floor((distBd % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById("seconds-bd").innerText = String(Math.floor((distBd % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+
+    // 2. Japan Timer (BD -> JP)
+    const distJp = targetJp - now;
+    if (distJp < 0) {
+      document.getElementById("timer-jp").innerHTML = "<div style='grid-column: span 4; font-size: 18px; font-weight: bold; color: #bc002d; padding: 15px;'>日本に到着しました！🇯🇵</div>";
+    } else {
+      document.getElementById("days-jp").innerText = String(Math.floor(distJp / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById("hours-jp").innerText = String(Math.floor((distJp % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById("minutes-jp").innerText = String(Math.floor((distJp % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById("seconds-jp").innerText = String(Math.floor((distJp % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+  }
+
+  updateTimers();
+  setInterval(updateTimers, 1000);
+</script>
+
+</body>
+</html>
