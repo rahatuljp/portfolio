@@ -1,202 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Islam Mohammad Rahatul - CV</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      line-height: 1.5;
-      color: #222;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 30px;
-      background: #fff;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 2px solid #1a365d;
-      padding-bottom: 15px;
-      margin-bottom: 25px;
-    }
-    .header-left h1 {
-      font-size: 26px;
-      color: #1a365d;
-      letter-spacing: 0.5px;
-    }
-    .header-left .title {
-      font-size: 14px;
-      color: #4a5568;
-      margin-top: 4px;
-    }
-    .photo {
-      width: 90px;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 4px;
-      border: 1px solid #cbd5e0;
-    }
-    h2 {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #1a365d;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 4px;
-      margin: 22px 0 12px;
-    }
-    .profile {
-      font-size: 14px;
-      color: #2d3748;
-    }
-    .job {
-      margin-bottom: 14px;
-    }
-    .job-header {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .job-title {
-      font-weight: 600;
-      font-size: 15px;
-    }
-    .job-company {
-      font-size: 14px;
-      color: #4a5568;
-    }
-    .job-date {
-      font-size: 13px;
-      color: #718096;
-    }
-    .job-location {
-      font-size: 13px;
-      color: #718096;
-      margin-bottom: 6px;
-    }
-    ul {
-      padding-left: 18px;
-      margin-top: 6px;
-    }
-    li {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-    .edu-item {
-      margin-bottom: 12px;
-    }
-    .edu-title {
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .edu-details {
-      font-size: 13px;
-      color: #4a5568;
-    }
-    .skills {
-      font-size: 14px;
-    }
-    .skills strong {
-      color: #1a365d;
-    }
-    .languages, .personal {
-      font-size: 14px;
-    }
-    .personal span {
-      display: inline-block;
-      margin-right: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Islam Mohammad Rahatul</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #222;
+            line-height: 1.4;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .cv-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        header {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 24px;
+            color: #003366;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .subtitle {
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+            margin-top: 2px;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px 15px;
+            font-size: 11px;
+            margin-top: 8px;
+            color: #555;
+        }
+        section {
+            margin-bottom: 14px;
+        }
+        h2 {
+            font-size: 13px;
+            color: #003366;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 3px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        p, li {
+            font-size: 11.5px;
+            color: #333;
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 18px;
+        }
+        li {
+            margin-bottom: 3px;
+        }
+        .job-title {
+            font-weight: bold;
+            font-size: 12px;
+            color: #111;
+        }
+        .job-date {
+            float: right;
+            font-weight: normal;
+            color: #666;
+            font-size: 11px;
+        }
+        .company {
+            font-style: italic;
+            font-size: 11px;
+            color: #444;
+            margin-bottom: 5px;
+        }
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .edu-item, .cert-item {
+            margin-bottom: 5px;
+        }
+        .edu-title {
+            font-weight: bold;
+            font-size: 11.5px;
+        }
+        .edu-sub {
+            font-size: 10.5px;
+            color: #555;
+        }
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 4px;
+        }
+        .skills-table td {
+            padding: 3px 0;
+            font-size: 11px;
+            vertical-align: top;
+        }
+        .skills-table td.cat {
+            font-weight: bold;
+            width: 30%;
+            color: #222;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .cv-container {
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="header-left">
-      <h1>ISLAM MOHAMMAD RAHATUL</h1>
-      <div class="title">CAD Engineer · Electrical Design · Solar Construction</div>
-    </div>
-    <!-- Add your photo here if needed -->
-    <!-- <img src="photo.jpg" alt="Photo" class="photo"> -->
-  </div>
+<div class="cv-container">
+    <header>
+        <h1>Islam Mohammad Rahatul</h1>
+        <div class="subtitle">Electrical CAD Engineer | Site Manager (職長) | Solar PV & Electrical Construction</div>
+        <div class="contact-grid">
+            <div>Current Address: 〒857-1162 長崎県佐世保市大岳台町29番9号 レディハイツ201号室</div>
+            <div>Status of Residence: Engineer / Specialist in Humanities</div>
+            <div>Nationality / DOB: Bangladeshi | September 4, 1997</div>
+            <div>Permanent Address: 217, Shutkipatty, Asadgonj, Chittagong GPO - 4000</div>
+        </div>
+    </header>
 
-  <h2>Profile</h2>
-  <p class="profile">
-    Electrical CAD Engineer and site foreman at 株式会社日本エコネット, managing Zone 2 (2工区) of the Ukujima mega solar project in Japan. I prepare electrical drawings, single-line diagrams and solar PV layouts for solar power and electrical construction projects, with a strong focus on drawing accuracy and close coordination with site teams. I am proficient in Rebro, Jw_cad and AutoCAD, and hold a Diploma in Electrical Technology and a 専門士 in CAD Information Technology. I am now building my technical and IT skills, including Python and web development, with the goal of an international career in electrical engineering, CAD and IT.
-  </p>
+    <section>
+        <h2>Professional Summary</h2>
+        <p>Electrical CAD Engineer and Site Foreman (管理者職長) at 株式会社日本エコネット, supervising Zone 2 (2工区) of the Ukujima Mega Solar Construction Project in Nagasaki, Japan. Experienced in preparing electrical layout diagrams, single-line diagrams, and solar PV system plans using Rebro, Jw_cad, and AutoCAD within a full Japanese-language working environment. Licensed Foreman & Safety Manager under Japanese Industrial Safety regulations and holder of a Japanese Driver's License.</p>
+    </section>
 
-  <h2>Work Experience</h2>
-  <div class="job">
-    <div class="job-header">
-      <div>
-        <div class="job-title">CAD Engineer — 株式会社日本エコネット本社 (Nihon Econet)</div>
-        <div class="job-company">Solar Power / Electrical Construction · Japan</div>
-      </div>
-      <div class="job-date">Jun 2025 – Present</div>
-    </div>
-    <ul>
-      <li>Prepare electrical drawings, layouts and single-line diagrams for construction projects</li>
-      <li>Produce solar PV system drawings using Rebro, Jw_cad and AutoCAD</li>
-      <li>Check drawings for accuracy; support site and construction activities</li>
-    </ul>
-  </div>
+    <section>
+        <h2>Work Experience</h2>
+        <div>
+            <div class="job-title">CAD Engineer / Site Foreman (管理者職長) <span class="job-date">June 2025 – Present</span></div>
+            <div class="company">株式会社日本エコネット本社 — Ukujima Mega Solar Construction Project - Zone 2 (2工区), 長崎県日本</div>
+            <ul>
+                <li><strong>Electrical CAD Design:</strong> Draft, revise, and verify electrical single-line diagrams, layout plans, and solar PV wiring arrangements.</li>
+                <li><strong>Site & Safety Management:</strong> Supervise Zone 2 construction activities, lead daily safety briefings, and enforce safety protocols as certified Foreman (職長).</li>
+                <li><strong>Quality Control:</strong> Conduct pre-submission technical checks on CAD drawings to ensure structural and electrical compliance with Japanese engineering standards.</li>
+            </ul>
+        </div>
+    </section>
 
-  <h2>Education & Training</h2>
-  
-  <div class="edu-item">
-    <div class="edu-title">CAD Information Technology Diploma + 専門士 (Industrial Specialist)</div>
-    <div class="edu-details">CAD 製図専門学校 · Saitama, Japan · Mar 2025</div>
-  </div>
+    <section>
+        <h2>Education & Qualifications</h2>
+        <div class="grid-2col">
+            <div class="edu-item">
+                <div class="edu-title">Technical Associate Degree (2025)</div>
+                <div class="edu-sub">CAD製図専門学校</div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-title">Diploma in Electrical Engineering (2020)</div>
+                <div class="edu-sub">Chittagong Technical College (CTC) / BTEB </div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-title">Japanese Language Course (2023)</div>
+                <div class="edu-sub">国際協力日本語学院</div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-title">Secondary Education (HSC & SSC)</div>
+                <div class="edu-sub">HSC: Chittagong Govt. Commercial Institute (2016)<br>SSC: Lama Bazar A.A.S. City Corp. High School (2014)</div>
+            </div>
+        </div>
+    </section>
 
-  <div class="edu-item">
-    <div class="edu-title">Japanese Language Course</div>
-    <div class="edu-details">国際協力日本語学院 · Chiba, Japan ·  Mar 2023</div>
-  </div>
+    <section>
+        <h2>Licenses & Official Certifications</h2>
+        <div class="grid-2col">
+            <div class="cert-item">
+                <div class="edu-title">Japanese Driving License (普通自動車AT限定)</div>
+                <div class="edu-sub">Nagasaki Prefectural Public Safety Commission</div>
+            </div>
+            <div class="cert-item">
+                <div class="edu-title">Certified Foreman & Safety Manager (職長・安全衛生責任者)</div>
+                <div class="edu-sub">SAT Co., Ltd. (Under Industrial Safety Act)</div>
+            </div>
+        </div>
+    </section>
 
-  <div class="edu-item">
-    <div class="edu-title">Diploma in Engineering — Electrical Technology</div>
-    <div class="edu-details">Chittagong Technical College · BTEB · 2020</div>
-  </div>
+    <section>
+        <h2>Technical Skills & Competencies</h2>
+        <table class="skills-table">
+            <tr>
+                <td class="cat">CAD & Engineering</td>
+                <td>Rebro, Jw_cad, AutoCAD | Solar PV Layouts, Single-Line Diagrams, Wiring Design</td>
+            </tr>
+            <tr>
+                <td class="cat">Site Management</td>
+                <td>Foreman Supervision (職長), Safety Auditing, Worker Coordination, Subcontractor Management</td>
+            </tr>
+            <tr>
+                <td class="cat">IT & Languages</td>
+                <td>front-end developer Japanese: JLPT N2 (Conversation Level), Bengali: Native, English: Working</td>
+            </tr>
+        </table>
+    </section>
 
-  <div class="edu-item">
-    <div class="edu-title">HSC / Diploma in Business Studies (Accounting)</div>
-    <div class="edu-details">Chittagong Govt. Commercial Institute · 2016</div>
-  </div>
-
-  <div class="edu-item">
-    <div class="edu-title">Secondary School Certificate (Business Studies)</div>
-    <div class="edu-details">Lama Bazar A.A.S. City Corp. High School · 2014</div>
-  </div>
-
-  <h2>Technical Skills</h2>
-  <p class="skills">
-    <strong>CAD:</strong> Rebro · Jw_cad · AutoCAD<br>
-    <strong>Design:</strong> Electrical Drawing · Layouts · Single-Line Diagrams · Solar PV<br>
-    <strong>IT:</strong> front-end developer 
-  </p>
-
-  <h2>Languages</h2>
-  <p class="languages">
-    <strong>Bengali</strong> — Native &nbsp;&nbsp; 
-    <strong>Japanese</strong> — JLPT N2 (Conversation Level) &nbsp;&nbsp; 
-    <strong>English</strong> — Intermediate
-  </p>
-
-  <h2>Personal</h2>
-  <p class="personal">
-    <span><strong>DOB:</strong> 4 Sep 1997</span>
-    <span><strong>Status:</strong> Engineer/Specialist in Humanities/Int'l Services (until May 2030)</span>
-  </p>
-  <p class="personal" style="margin-top: 8px;">
-    <strong>Objective:</strong> Develop technical & IT skills, obtain a bachelor’s degree, and build an international career in electrical engineering, CAD and IT.
-  </p>
+    <section>
+        <h2>Career Goal & Vision</h2>
+        <p>To continuously advance technical expertise in electrical construction design, master advanced 3D CAD, achieve a Bachelor's degree in Engineering, and build a long-term international career bridging electrical engineering, site management, and IT solutions.</p>
+    </section>
+</div>
 
 </body>
 </html>
